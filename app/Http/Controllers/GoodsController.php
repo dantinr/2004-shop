@@ -12,4 +12,9 @@ class GoodsController extends Controller
     {
         // 查询商品信息
     }
+
+    public function test2()
+    {
+        // 第二功能
+    }
 }
