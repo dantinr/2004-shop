@@ -19,7 +19,11 @@ Route::get('/', function () {
 
 // http://shop.2004.com/test
 Route::get('/test',function(){
-    echo date('Y-m-d H:i:s');
+
+    $ip = $_SERVER['REMOTE_ADDR'];
+    echo "客户端IP: ".$ip;die;
+    echo '<pre>';print_r($_SERVER);echo '</pre>';
+
 });
 
 Route::get('/hello','TestController@hello');
