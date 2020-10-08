@@ -28,4 +28,5 @@ Route::get('/test',function(){
 
 Route::get('/hello','TestController@hello');
 Route::get('/sql1','TestController@sql1');
+Route::get('/u','TestController@u');
 
