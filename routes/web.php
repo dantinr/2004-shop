@@ -30,3 +30,7 @@ Route::get('/hello','TestController@hello');
 Route::get('/sql1','TestController@sql1');
 Route::get('/u','TestController@u');
 
+
+//商品
+Route::get('/goods/detail','GoodsController@detail');       //商品详情
+Route::get('/goods/list','GoodsController@goodsList');       //商品列表

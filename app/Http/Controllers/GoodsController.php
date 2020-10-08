@@ -3,18 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Model\GoodsModel;
 
 class GoodsController extends Controller
 {
-    //
 
-    public function test1()
+    /**
+     * 商品详情
+     */
+    public function detail(Request $request)
     {
-        // 查询商品信息
+        $goods_id = $request->get('id');
+        //echo "goods_id: ". $goods_id;
+
+        $goods = GoodsModel::find($goods_id);
+
+        $u = "张三";
+
+        $data = [
+            'g' => $goods,
+            'u' => $u
+        ];
+
+        return view('goods.detail',$data);
     }
 
-    public function test2()
+
+    /**
+     * 商品列表
+     */
+    public function goodsList()
     {
-        // 第二功能
+        $list = GoodsModel::limit(10)->get();
+
+        return view('goods.list',['list'=>$list]);
     }
 }
