@@ -11,26 +11,30 @@
 |
 */
 
+Route::get('/info',function(){
+    phpinfo();
+});
 Route::get('/', function () {
     echo date('Y-m-d H:i:s');die;
     return view('welcome');
 });
 
 
-// http://shop.2004.com/test
-Route::get('/test',function(){
-
-    $ip = $_SERVER['REMOTE_ADDR'];
-    echo "客户端IP: ".$ip;die;
-    echo '<pre>';print_r($_SERVER);echo '</pre>';
-
-});
-
 Route::get('/hello','TestController@hello');
 Route::get('/sql1','TestController@sql1');
 Route::get('/u','TestController@u');
+
+//Redis
+Route::get('/redis1','TestController@redis1');
+Route::get('/redis2','TestController@redis2');
 
 
 //商品
 Route::get('/goods/detail','GoodsController@detail');       //商品详情
 Route::get('/goods/list','GoodsController@goodsList');       //商品列表
+
+//用户
+Route::get('/user/regist','UserController@regist');         //注册 前台
+Route::post('/user/regist','UserController@registDo');         //注册 后台
+Route::get('/user/login','UserController@login');         //登录 前台
+Route::post('/user/login','UserController@loginDo');         //登录 后台

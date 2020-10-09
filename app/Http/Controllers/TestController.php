@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Model\UserModel;
+use Illuminate\Support\Facades\Redis;
 
 class TestController extends Controller
 {
@@ -43,5 +44,19 @@ class TestController extends Controller
 
         $res = UserModel::where(['user_id'=>5])->update($data);
         var_dump($res);
+    }
+
+    public function redis1()
+    {
+        $key = 'name1';
+        $name1 = Redis::get($key);
+        var_dump($name1);
+    }
+
+    public function redis2()
+    {
+
+        $num = Redis::incr('count');
+        echo $num;
     }
 }
