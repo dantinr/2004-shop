@@ -15,7 +15,7 @@ Route::get('/info',function(){
     phpinfo();
 });
 Route::get('/', function () {
-    echo date('Y-m-d H:i:s');die;
+    //echo date('Y-m-d H:i:s');die;
     return view('welcome');
 });
 

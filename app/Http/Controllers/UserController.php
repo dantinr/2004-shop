@@ -81,9 +81,10 @@ class UserController extends Controller
         //检测用户是否已被锁定
         $count = Redis::get($key);
 
-        if($count>5)
+        if($count>=5)
         {
-            echo "输入密码错误次数太多，用户已被锁定";
+            Redis::expire($key,3600);
+            echo "输入密码错误次数太多，用户已被锁定1小时，请稍后再试";
             die;
         }
 
@@ -102,15 +103,14 @@ class UserController extends Controller
         if(!$p)
         {
             //密码不正确  记录错误次数
+            Redis::incr($key);
+            Redis::expire($key,600);            //10分钟
 
-
-            $count = Redis::incr($key);
-            echo "密码错误次数：" . $count;
-
-            die;
+            echo "密码不正确";
         }
 
         //登录成功
+        echo "登录成功，正在跳转至个人中心";
 
 
     }
