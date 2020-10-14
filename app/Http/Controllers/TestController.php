@@ -59,4 +59,36 @@ class TestController extends Controller
         $num = Redis::incr('count');
         echo $num;
     }
+
+    /**
+     *
+     *  图片上传
+     */
+    public function uploadImg()
+    {
+
+        return view('test.upload');
+    }
+
+    /**
+     * 处理文件上传
+     */
+    public function upload2(Request $request)
+    {
+        $f = $request->file('img');
+        //echo '<pre>';print_r($f);echo '</pre>';
+
+        $name = $f->getClientOriginalName();            //获取原始文件名
+        $ext = $f->getClientOriginalExtension();        //获取扩展
+        $size = $f->getSize();                          //文件大小
+
+        //保存
+        $path = 'public/img';
+        $name = 'aaaa.' . $ext;
+
+        $res = $f->storeAs($path,$name);
+        var_dump($res);
+    }
+
+
 }

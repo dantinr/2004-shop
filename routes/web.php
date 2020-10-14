@@ -19,6 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test/upload1',"TestController@uploadImg");
+Route::post('/test/upload2',"TestController@upload2");
+
 
 Route::get('/hello','TestController@hello');
 Route::get('/sql1','TestController@sql1');
