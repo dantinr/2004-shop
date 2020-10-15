@@ -21,6 +21,8 @@ Route::get('/', function () {
 
 Route::get('/test/upload1',"TestController@uploadImg");
 Route::post('/test/upload2',"TestController@upload2");
+Route::get('/test/md5',"TestController@testMd5");
+Route::get('/test/goods',"TestController@goods");
 
 
 Route::get('/hello','TestController@hello');
