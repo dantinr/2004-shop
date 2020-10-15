@@ -105,12 +105,14 @@ class UserController extends Controller
             //密码不正确  记录错误次数
             Redis::incr($key);
             Redis::expire($key,600);            //10分钟
-
-            echo "密码不正确";
+            echo "密码不正确";die;
         }
 
         //登录成功
         echo "登录成功，正在跳转至个人中心";
+        // 记录登录信息
+        $key = 'login:time:'.$u->user_id;
+        Redis::rpush($key,time());
 
 
     }

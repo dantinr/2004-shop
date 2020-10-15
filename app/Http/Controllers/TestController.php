@@ -12,7 +12,9 @@ class TestController extends Controller
 
     public function hello()
     {
-        echo "hello world";
+        $key = 'login:time:3824';
+        $arr = Redis::lrange($key,0,-1);
+        echo '<pre>';print_r($arr);echo '</pre>';
     }
 
 
