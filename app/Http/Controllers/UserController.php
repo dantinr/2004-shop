@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Model\UserModel;
 use MongoDB\Driver\Session;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -23,8 +24,6 @@ class UserController extends Controller
      */
     public function registDo(Request $request)
     {
-        echo '<pre>';print_r($_POST);echo '</pre>';
-
 
         //表单验证
         $validate = $request->validate([
@@ -47,6 +46,16 @@ class UserController extends Controller
         ];
 
         $uid = UserModel::insertGetId($u);
+
+        //生成激活码
+        $active_code = Str::random(64);
+        //保存激活码与用户的对应关系 使用有序集合
+        $redis_active_key = 'ss:user:active';
+        Redis::zAdd($redis_active_key,$uid,$active_code);
+
+
+        $active_url = env('APP_URL').'/user/active?code='.$active_code;
+        echo $active_url;die;
 
         //注册成功跳转登录
         if($uid)
@@ -114,6 +123,31 @@ class UserController extends Controller
         $key = 'login:time:'.$u->user_id;
         Redis::rpush($key,time());
 
+
+    }
+
+    /**
+     * 激活用户
+     */
+    public function active(Request  $request)
+    {
+        $active_code = $request->get('code');
+        echo "激活码：".$active_code;echo '</br>';
+
+        $redis_active_key = 'ss:user:active';
+        $uid = Redis::zScore($redis_active_key,$active_code);
+        if($uid){
+            echo "uid: ". $uid;echo '</br>';
+
+            //激活用户
+            UserModel::where(['user_id'=>$uid])->update(['is_validated'=>1]);
+            echo "激活成功";
+
+            //删除集合中的激活码
+            Redis::zRem($redis_active_key,$active_code);
+        }else{
+            echo "没有此用户";
+        }
 
     }
 }

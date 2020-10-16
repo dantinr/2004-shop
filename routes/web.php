@@ -43,3 +43,4 @@ Route::get('/user/regist','UserController@regist');         //注册 前台
 Route::post('/user/regist','UserController@registDo');         //注册 后台
 Route::get('/user/login','UserController@login');         //登录 前台
 Route::post('/user/login','UserController@loginDo');         //登录 后台
+Route::get('/user/active','UserController@active');         //激活用户
