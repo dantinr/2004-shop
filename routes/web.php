@@ -44,3 +44,6 @@ Route::post('/user/regist','UserController@registDo');         //注册 后台
 Route::get('/user/login','UserController@login');         //登录 前台
 Route::post('/user/login','UserController@loginDo');         //登录 后台
 Route::get('/user/active','UserController@active');         //激活用户
+
+Route::get('/cart','CartController@index');               //购物车
+Route::get('/cart/add','CartController@add');               //加入购物车

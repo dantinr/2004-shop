@@ -18,11 +18,8 @@ class GoodsController extends Controller
 
         $goods = GoodsModel::find($goods_id);
 
-        $u = "张三";
-
         $data = [
             'g' => $goods,
-            'u' => $u
         ];
 
         return view('goods.detail',$data);

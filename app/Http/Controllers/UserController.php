@@ -123,6 +123,9 @@ class UserController extends Controller
         $key = 'login:time:'.$u->user_id;
         Redis::rpush($key,time());
 
+        //写入session
+        session(['uid'=>$u->user_id]);
+
 
     }
 
