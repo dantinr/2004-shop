@@ -150,6 +150,55 @@ class TestController extends Controller
     }
 
 
+    public function weather()
+    {
+        $uri = 'https://devapi.qweather.com/v7/weather/now?location=101010700&key=263bd19af9ce46ee8de646900b110c63&gzip=n';
+        $json_str = file_get_contents($uri);
+        $data = json_decode($json_str,true);
+        echo '<pre>';print_r($data);echo '</pre>';
+    }
+
+
+    public function curl1()
+    {
+
+        $uri = 'https://devapi.qweather.com/v7/weather/now?location=101010700&key=263bd19af9ce46ee8de646900b110c63&gzip=n';
+        $ch = curl_init();
+
+        // 设置URL和相应的选项
+        curl_setopt($ch, CURLOPT_URL, $uri);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+
+        //关闭HTTPS验证
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+
+        // 抓取URL并把它传递给浏览器
+        $json_str = curl_exec($ch);
+
+
+        //捕获错误
+        $err_no = curl_errno($ch);
+        if($err_no)
+        {
+            $err_msg = curl_error($ch);
+            echo "错误信息: ". $err_msg;
+            die;
+        }
+
+
+        // 关闭cURL资源，并且释放系统资源
+        curl_close($ch);
+
+        $data = json_decode($json_str,true);
+        echo '<pre>';print_r($data);echo '</pre>';
+
+    }
+
+
+
+
 
 
 }

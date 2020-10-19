@@ -15,7 +15,7 @@ Route::get('/info',function(){
     phpinfo();
 });
 Route::get('/', function () {
-    echo date('Y-m-d H:i:s');die;
+    //echo date('Y-m-d H:i:s');die;
     return view('welcome');
 });
 
@@ -23,6 +23,8 @@ Route::get('/test/upload1',"TestController@uploadImg");
 Route::post('/test/upload2',"TestController@upload2");
 Route::get('/test/md5',"TestController@testMd5");
 Route::get('/test/goods',"TestController@goods");
+Route::get('/test/weather',"TestController@weather");
+Route::get('/test/curl1',"TestController@curl1");
 
 
 Route::get('/hello','TestController@hello');
@@ -47,3 +49,6 @@ Route::get('/user/active','UserController@active');         //激活用户
 
 Route::get('/cart','CartController@index');               //购物车
 Route::get('/cart/add','CartController@add');               //加入购物车
+
+
+Route::get('/github/callback','UserController@githubLogin');               //GITHUB登录
