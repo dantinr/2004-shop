@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\UserModel;
-use MongoDB\Driver\Session;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
+use GuzzleHttp\Client;
+use App\Model\GithubUserModel;
 
 class UserController extends Controller
 {
@@ -157,21 +158,121 @@ class UserController extends Controller
     /**
      * GITHUB登录
      */
+
     public function githubLogin(Request $request)
     {
-        $code = $request->get('code');
-        echo "code: ".$code;
 
-        //获取access_token
-        $this->getAccessToken($code);
+        // 接收code
+        $code = $_GET['code'];
+
+        //换取access_token
+        $token = $this->getAccessToken($code);
+        //获取用户信息
+        $git_user = $this->getGithubUserInfo($token);
+
+        //判断用户是否已存在，不存在则入库新用户
+        $u = GithubUserModel::where(['guid'=>$git_user['id']])->first();
+        if($u)          //存在
+        {
+            // TODO 登录逻辑
+            $this->webLogin($u->uid);
+
+        }else{          //不存在
+
+            //在 用户主表中创建新用户  获取 uid
+            $new_user = [
+                'user_name' => Str::random(10)              //生成随机用户名，用户有一次修改机会
+            ];
+            $uid = UserModel::insertGetId($new_user);
+
+            // 在 github 用户表中记录新用户
+            $info = [
+                'uid'                   => $uid,       //作为本站新用户
+                'guid'                  => $git_user['id'],         //github用户id
+                'avatar'                =>  $git_user['avatar_url'],
+                'github_url'            =>  $git_user['html_url'],
+                'github_username'       =>  $git_user['name'],
+                'github_email'          =>  $git_user['email'],
+                'add_time'              =>  time()
+            ];
+
+            $guid = GithubUserModel::insertGetId($info);        //插入新纪录
+
+            // TODO 登录逻辑
+            $this->webLogin($uid);
+        }
+
+        //将 token 返回给客户端
+        return redirect('/user/center');       //登录成功 返回首页
 
     }
 
     /**
-     * 获取access_token
+     * 根据code 换取 token
      */
-    private function getAccessToken($code)
+    protected function getAccessToken($code)
     {
+        $url = 'https://github.com/login/oauth/access_token';
+
+        //post 接口  Guzzle or  curl
+        $client = new Client();
+        $response = $client->request('POST',$url,[
+            'verify'    => false,
+            'form_params'   => [
+                'client_id'         => env('OAUTH_GITHUB_ID'),
+                'client_secret'     => env('OAUTH_GITHUB_SEC'),
+                'code'              => $code
+            ]
+        ]);
+        parse_str($response->getBody(),$str); // 返回字符串 access_token=59a8a45407f1c01126f98b5db256f078e54f6d18&scope=&token_type=bearer
+        return $str['access_token'];
+    }
+
+    /**
+     * 获取github个人信息
+     * @param $token
+     */
+    protected function getGithubUserInfo($token)
+    {
+        $url = 'https://api.github.com/user';
+        //GET 请求接口
+        $client = new Client();
+        $response = $client->request('GET',$url,[
+            'verify'    => false,
+            'headers'   => [
+                'Authorization' => "token $token"
+            ]
+        ]);
+        return json_decode($response->getBody(),true);
+    }
+
+    /**
+     * WEB登录逻辑
+     */
+    protected function webLogin($uid)
+    {
+
+        //将登录信息保存至session uid 与 token写入 seesion
+        session(['uid'=>$uid]);
+
+    }
+
+    /**
+     * 用户中心 登录状态才可访问
+     */
+    public function center()
+    {
+        //$sess = session()->all();
+        $uid = session()->get('uid');
+
+        if(empty($uid))
+        {
+            echo "请先登录";
+            die;
+        }
+
+        //展示个人信息
+        echo "欢迎来到个人中心";
 
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Model\UserModel;
 use Illuminate\Support\Facades\Redis;
+use GuzzleHttp\Client;
 
 class TestController extends Controller
 {
@@ -195,6 +196,25 @@ class TestController extends Controller
         echo '<pre>';print_r($data);echo '</pre>';
 
     }
+
+
+
+    public function guzzleTest1()
+    {
+        $uri = 'https://devapi.qweather.com/v7/weather/now?location=101010700&key=263bd19af9ce46ee8de646900b110c63&gzip=n';
+        $client = new Client();
+        $res = $client->request('GET',$uri,['verify'=>false]);
+        $body = $res->getBody();        //获取接口响应的数据
+        echo $body;
+
+        $data = json_decode($body,true);
+        echo '<pre>';print_r($data);echo '</pre>'; 
+
+
+
+
+    }
+
 
 
 

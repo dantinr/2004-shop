@@ -25,6 +25,7 @@ Route::get('/test/md5',"TestController@testMd5");
 Route::get('/test/goods',"TestController@goods");
 Route::get('/test/weather',"TestController@weather");
 Route::get('/test/curl1',"TestController@curl1");
+Route::get('/test/guzzle1',"TestController@guzzleTest1");
 
 
 Route::get('/hello','TestController@hello');
@@ -46,6 +47,7 @@ Route::post('/user/regist','UserController@registDo');         //注册 后台
 Route::get('/user/login','UserController@login');         //登录 前台
 Route::post('/user/login','UserController@loginDo');         //登录 后台
 Route::get('/user/active','UserController@active');         //激活用户
+Route::get('/user/center','UserController@center');         //个人中心
 
 Route::get('/cart','CartController@index');               //购物车
 Route::get('/cart/add','CartController@add');               //加入购物车
