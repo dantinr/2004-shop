@@ -275,7 +275,9 @@ class UserController extends Controller
         }
 
         //展示个人信息
-        echo "欢迎来到个人中心";
+        //echo "欢迎来到个人中心";
+
+        return view('user.home-index');
 
     }
 }
