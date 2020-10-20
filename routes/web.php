@@ -53,4 +53,7 @@ Route::get('/cart','CartController@index');               //购物车
 Route::get('/cart/add','CartController@add');               //加入购物车
 
 
+Route::get('/order/create','OrderController@add');          //生成订单
+
+
 Route::get('/github/callback','UserController@githubLogin');               //GITHUB登录
