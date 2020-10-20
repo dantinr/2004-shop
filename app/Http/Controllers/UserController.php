@@ -74,7 +74,10 @@ class UserController extends Controller
      */
     public function login()
     {
-        return view('user.login');
+        $data = [
+            'login_url' => 'https://github.com/login/oauth/authorize?client_id=f84162d2f8c36be252c9'
+        ];
+        return view('user.login',$data);
     }
 
     /**
