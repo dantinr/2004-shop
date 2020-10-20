@@ -25,18 +25,17 @@ class CartController extends Controller
         $list = CartModel::where(['uid'=>$uid])->get();
         //echo '<pre>';print_r($list->toArray());echo '</pre>';
 
+        $goods = [];
         foreach($list as $k=>$v)
         {
             $goods[] = GoodsModel::find($v['goods_id'])->toArray();
         }
 
-        echo '<pre>';print_r($goods);echo '</pre>';
-
         $data = [
             'goods' => $goods
         ];
 
-        return view('cart.index',$data);
+        return view('cart',$data);
 
 
 
