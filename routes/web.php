@@ -55,5 +55,7 @@ Route::get('/cart/add','CartController@add');               //加入购物车
 
 Route::get('/order/create','OrderController@add');          //生成订单
 
+Route::get('/pay/ali','PayController@aliPay');                   //订单支付(支付宝)
+
 
 Route::get('/github/callback','UserController@githubLogin');               //GITHUB登录

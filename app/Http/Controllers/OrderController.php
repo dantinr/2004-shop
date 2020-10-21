@@ -21,6 +21,8 @@ class OrderController extends Controller
         //TODO 清空购物车
 
         //TODO 跳转至 支付页面
+        echo "生成订单成功,正在跳转支付页面";
 
     }
+
 }
