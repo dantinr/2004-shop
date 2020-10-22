@@ -669,7 +669,7 @@
                     <li class="yui3-u-1-6">
                         <dl class="picDl huozhe">
                             <dd>
-                                <a href="" class="pic"><img src="img/like_02.png" alt="" /></a>
+                                <a href="/goods/detail?id=27193" class="pic"><img src="img/like_02.png" alt="" /></a>
                                 <div class="like-text">
                                     <p>阳光美包新款单肩包女包时尚子母包四件套女</p>
                                     <h3>¥116.00</h3>
@@ -687,14 +687,14 @@
                     <li class="yui3-u-1-6">
                         <dl class="picDl jilu">
                             <dd>
-                                <a href="" class="pic"><img src="img/like_03.png" alt="" /></a>
+                                <a href="/goods/detail?id=27192" class="pic"><img src="img/like_03.png" alt="" /></a>
                                 <div class="like-text">
                                     <p>爱仕达 30CM炒锅不粘锅NWG8330E电磁炉炒</p>
                                     <h3>¥116.00</h3>
                                 </div>
                             </dd>
                             <dd>
-                                <a href="" class="pic"><img src="img/like_02.png" alt="" /></a>
+                                <a href="/goods/detail?id=27191" class="pic"><img src="img/like_02.png" alt="" /></a>
                                 <div class="like-text">
                                     <p>阳光美包新款单肩包女包时尚子母包四件套女</p>
                                     <h3>¥116.00</h3>
@@ -705,7 +705,7 @@
                     <li class="yui3-u-1-6">
                         <dl class="picDl tuhua">
                             <dd>
-                                <a href="" class="pic"><img src="img/like_01.png" alt="" /></a>
+                                <a href="/goods/detail?id=27190" class="pic"><img src="img/like_01.png" alt="" /></a>
                                 <div class="like-text">
                                     <p>捷波朗 </p>
                                     <p>（jabra）BOOSI劲步</p>
@@ -713,7 +713,7 @@
                                 </div>
                             </dd>
                             <dd>
-                                <a href="" class="pic"><img nsrc="assets/img/like_02.png" alt="" /></a>
+                                <a href="/goods/detail?id=27189" class="pic"><img nsrc="assets/img/like_02.png" alt="" /></a>
                                 <div class="like-text">
                                     <p>三星（G5500）</p>
                                     <p>移动联通双网通</p>
@@ -725,7 +725,7 @@
                     <li class="yui3-u-1-6">
                         <dl class="picDl huozhe">
                             <dd>
-                                <a href="" class="pic"><img src="img/like_02.png" alt="" /></a>
+                                <a href="/goods/detail?id=27188" class="pic"><img src="img/like_02.png" alt="" /></a>
                                 <div class="like-text">
                                     <p>阳光美包新款单肩包女包时尚子母包四件套女</p>
                                     <h3>¥116.00</h3>
