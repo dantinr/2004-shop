@@ -23,7 +23,6 @@ class CartController extends Controller
 
         //取购物车商品信息
         $list = CartModel::where(['uid'=>$uid])->get();
-        //echo '<pre>';print_r($list->toArray());echo '</pre>';
 
         $goods = [];
         foreach($list as $k=>$v)
@@ -51,13 +50,7 @@ class CartController extends Controller
         $uid = session()->get('uid');
         if(empty($uid))
         {
-            $data = [
-                'errno' => 400001,
-                'msg'   => '请先登录'
-            ];
-
-            echo json_encode($data);
-            die;
+            return redirect('/user/login');
         }
 
         $goods_id = $request->get('id');
@@ -76,12 +69,7 @@ class CartController extends Controller
         $res = CartModel::insertGetId($cart_info);
         if($res>0)
         {
-            $data = [
-                'errno' => 0,
-                'msg'   => '成功加入购物车'
-            ];
-
-            echo json_encode($data);
+            return redirect('/cart');
         }else{
             $data = [
                 'errno' => 500001,
