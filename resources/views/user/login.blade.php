@@ -66,7 +66,7 @@
                                     <li><a href="{{$login_url}}"><img src="/img/weixin.png" /></a></li>
                                 </ul>
                             </div>
-                            <span class="register"><a href="register.html" target="_blank">立即注册</a></span>
+                            <span class="register"><a href="/user/regist" target="_blank">立即注册</a></span>
                         </div>
                     </div>
                 </div>

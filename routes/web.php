@@ -19,6 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/',"IndexController@home");         //网站首页
+
 Route::get('/test/upload1',"TestController@uploadImg");
 Route::post('/test/upload2',"TestController@upload2");
 Route::get('/test/md5',"TestController@testMd5");
