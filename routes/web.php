@@ -62,3 +62,8 @@ Route::get('/pay/ali','PayController@aliPay');                   //订单支付(
 
 
 Route::get('/github/callback','UserController@githubLogin');               //GITHUB登录
+
+
+Route::get('/prize','PrizeController@index');           //抽奖
+Route::get('/prize/start','PrizeController@add');           //开始抽奖
+
