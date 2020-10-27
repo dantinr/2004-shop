@@ -290,6 +290,7 @@
                                 <ul class="btn-choose unstyled">
                                     <li>
                                         <a href="/cart/add?id={{$g->goods_id}}" target="_blank" class="sui-btn  btn-danger addshopcar">加入购物车</a>
+                                        <a href="" target="_blank" id="fav" class="sui-btn  btn-danger addshopcar">收藏</a>
                                     </li>
                                 </ul>
                             </div>
@@ -946,4 +947,26 @@
 
 @section('footerjs')
     @parent
+
+    {{--  收藏 --}}
+    <script>
+       $("#fav").on('click',function(e){
+           e.preventDefault();
+           $.ajax({
+               url: '/goods/fav?id=' + {{$g->goods_id}},
+               type: 'get',
+               dataType: 'json',
+               success: function(d)
+               {
+                   console.log(d);
+                   if(d.errno>0)
+                   {
+                       window.location = '/user/login';
+                   }
+               }
+           });
+       });
+    </script>
+
 @endsection
+

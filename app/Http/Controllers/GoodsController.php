@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\FavGoodsModel;
 use Illuminate\Http\Request;
 use App\Model\GoodsModel;
 
 class GoodsController extends Controller
 {
+
+
+
 
     /**
      * 商品详情
@@ -47,5 +51,38 @@ class GoodsController extends Controller
         $list = GoodsModel::limit(10)->get();
 
         return view('goods.list',['list'=>$list]);
+    }
+
+    /**
+     * 收藏商品
+     */
+    public function fav(Request  $request)
+    {
+        $uid = session()->get('uid');
+        if(empty($uid))
+        {
+            $res = [
+                'errno' => 400003,
+                'msg'   => "请先登录"
+            ];
+
+            return $res;
+        }
+
+        $id = $request->get('id');
+
+        $data = [
+            'goods_id'  => $id,
+            'uid'       => $uid,
+            'add_time'  => time()
+        ];
+
+        FavGoodsModel::insertGetId($data);
+        $res = [
+            'errno' => 0,
+            'msg'   => 'ok'
+        ];
+
+        return  $res;
     }
 }

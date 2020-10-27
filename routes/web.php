@@ -42,6 +42,7 @@ Route::get('/redis2','TestController@redis2');
 //商品
 Route::get('/goods/detail','GoodsController@detail');       //商品详情
 Route::get('/goods/list','GoodsController@goodsList');       //商品列表
+Route::get('/goods/fav','GoodsController@fav');       //商品收藏
 
 //用户
 Route::get('/user/regist','UserController@regist');         //注册 前台

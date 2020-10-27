@@ -22,7 +22,7 @@
 @section('body')
 
 
-    @show
+@show
 
     @section('footerjs')
         <!--侧栏面板结束-->
