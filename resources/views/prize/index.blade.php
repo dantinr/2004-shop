@@ -26,7 +26,7 @@
                         window.location.href = '/user/login'
                     }
 
-                    alert(d.data.level);
+                    alert(d.msg);
                 }
             });
         })

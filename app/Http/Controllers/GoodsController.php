@@ -17,6 +17,8 @@ class GoodsController extends Controller
      */
     public function detail(Request $request)
     {
+
+
         $goods_id = $request->get('id');
         //echo "goods_id: ". $goods_id;die;
 
@@ -38,6 +40,11 @@ class GoodsController extends Controller
         $data = [
             'g' => $goods,
         ];
+
+
+
+        //商品浏览量 +1
+        GoodsModel::where(['goods_id'=>$goods_id])->increment('click_count');
 
         return view('goods.detail',$data);
     }
@@ -83,6 +90,9 @@ class GoodsController extends Controller
             'msg'   => 'ok'
         ];
 
+
+        //收藏数 +1
+        GoodsModel::where(['goods_id'=>$id])->increment('fav_count');
         return  $res;
     }
 }

@@ -28,6 +28,7 @@ Route::get('/test/goods',"TestController@goods");
 Route::get('/test/weather',"TestController@weather");
 Route::get('/test/curl1',"TestController@curl1");
 Route::get('/test/guzzle1',"TestController@guzzleTest1");
+Route::get('/test/seat',"Test\SeatController@index");
 
 
 Route::get('/hello','TestController@hello');

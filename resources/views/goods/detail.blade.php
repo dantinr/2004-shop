@@ -958,10 +958,11 @@
                dataType: 'json',
                success: function(d)
                {
-                   console.log(d);
                    if(d.errno>0)
                    {
                        window.location = '/user/login';
+                   }else{
+                       alert("收藏成功");
                    }
                }
            });

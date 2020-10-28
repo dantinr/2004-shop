@@ -35,15 +35,15 @@ class PrizeController extends Controller
         //检查用户当天是否已有抽奖记录
         $time1 = strtotime(date("Y-m-d"));
         $res = PrizeModel::where(['uid'=>$uid])->where("add_time",">=",$time1)->first();
-        if($res)        //已经有记录
-        {
-            $response = [
-                'errno' => 300008,
-                'msg'   => '今天已经抽过奖了，请明天再来吧'
-            ];
-
-            return $response;
-        }
+//        if($res)        //已经有记录
+//        {
+//            $response = [
+//                'errno' => 300008,
+//                'msg'   => '今天已经抽过奖了，请明天再来吧'
+//            ];
+//
+//            return $response;
+//        }
 
         $rand = mt_rand(1,1000);
 
@@ -74,9 +74,9 @@ class PrizeController extends Controller
         {
             $data = [
                 'errno' => 0,
-                'msg'   => 'ok',
+                'msg'   => "一等奖",
                 'data'  => [
-                    'level' => $level       //中奖等级
+                    'level' => $level,       //中奖等级
                 ]
             ];
 
