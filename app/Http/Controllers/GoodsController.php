@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\FavGoodsModel;
 use Illuminate\Http\Request;
 use App\Model\GoodsModel;
-
+use App\Model\HistoryModel;
 class GoodsController extends Controller
 {
 
@@ -18,12 +18,25 @@ class GoodsController extends Controller
     public function detail(Request $request)
     {
 
-
+        $uid=session()->get('uid');
+//        dd($uid);
         $goods_id = $request->get('id');
         //echo "goods_id: ". $goods_id;die;
 
         $goods = GoodsModel::find($goods_id);
+        //缓存
+        
 
+
+        //用户浏览历史记录
+        if(!empty($uid)){
+            $data=[
+                'uid'=>$uid,
+                'goods_id'=>$goods_id,
+                'history_time'=>time(),
+            ];
+           $res=HistoryModel::insert($data);
+        }
         //验证商品是否有效（是否存在、是否下架、是否删除）
         if(empty($goods))
         {
