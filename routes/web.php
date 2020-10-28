@@ -49,6 +49,7 @@ Route::get('/goods/fav','GoodsController@fav');       //商品收藏
 Route::get('/user/regist','UserController@regist');         //注册 前台
 Route::post('/user/regist','UserController@registDo');         //注册 后台
 Route::get('/user/login','UserController@login');         //登录 前台
+Route::get('/user/quit','UserController@quit');         //退出登录
 Route::post('/user/login','UserController@loginDo');         //登录 后台
 Route::get('/user/active','UserController@active');         //激活用户
 Route::get('/user/center','UserController@center');         //个人中心

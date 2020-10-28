@@ -280,4 +280,9 @@ class UserController extends Controller
         return view('user.home-index');
 
     }
+    public function quit(Request $request){
+        $request ->session()->flush();
+
+        return redirect('user/login');
+    }
 }

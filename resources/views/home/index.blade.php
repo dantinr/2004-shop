@@ -13,7 +13,13 @@
                     <div class="shortcut">
                         <ul class="fl">
                             <li class="f-item">品优购欢迎您！</li>
-                            <li class="f-item">请<a href="/user/login" target="_blank">登录</a>　<span><a href="/user/regist" target="_blank">免费注册</a></span></li>
+                            @if(session('uid'))
+
+
+                            <li class="f-item"><a href="/user/quit" target="_blank">退出</a></li>
+                                @else
+                                <li class="f-item">请<a href="/user/login" target="_blank">登录</a>　<span><a href="/user/regist" target="_blank">免费注册</a></span></li>
+                            @endif
                         </ul>
                         <ul class="fr">
                             <li class="f-item">我的订单</li>
