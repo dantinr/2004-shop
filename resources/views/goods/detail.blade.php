@@ -162,7 +162,7 @@
                 </div>
                 <div class="fr itemInfo-wrap">
                     <div class="sku-name">
-                        <h4>{{$g->goods_name}}</h4>
+                        <h4>{{$g['goods_name']}}</h4>
                     </div>
                     <div class="news"><span>推荐选择下方[移动优惠购],手机套餐齐搞定,不用换号,每月还有花费返</span></div>
                     <div class="summary">
@@ -172,7 +172,7 @@
                             </div>
                             <div class="fl price">
                                 <i>¥</i>
-                                <em>{{$g->shop_price}}</em>
+                                <em>{{$g['shop_price']}}</em>
                                 <span>降价通知</span>
                             </div>
                             <div class="fr remark">
@@ -289,7 +289,7 @@
                             <div class="fl">
                                 <ul class="btn-choose unstyled">
                                     <li>
-                                        <a href="/cart/add?id={{$g->goods_id}}" target="_blank" class="sui-btn  btn-danger addshopcar">加入购物车</a>
+                                        <a href="/cart/add?id={{$g['goods_id']}}" target="_blank" class="sui-btn  btn-danger addshopcar">加入购物车</a>
                                         <a href="" target="_blank" id="fav" class="sui-btn  btn-danger addshopcar">收藏</a>
                                     </li>
                                 </ul>
@@ -953,7 +953,7 @@
        $("#fav").on('click',function(e){
            e.preventDefault();
            $.ajax({
-               url: '/goods/fav?id=' + {{$g->goods_id}},
+               url: '/goods/fav?id=' + {{$g['goods_id']}},
                type: 'get',
                dataType: 'json',
                success: function(d)

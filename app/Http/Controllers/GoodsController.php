@@ -6,6 +6,7 @@ use App\Model\FavGoodsModel;
 use Illuminate\Http\Request;
 use App\Model\GoodsModel;
 use App\Model\HistoryModel;
+use Illuminate\Support\Facades\Redis;
 class GoodsController extends Controller
 {
 
@@ -22,10 +23,23 @@ class GoodsController extends Controller
 //        dd($uid);
         $goods_id = $request->get('id');
         //echo "goods_id: ". $goods_id;die;
-
         $goods = GoodsModel::find($goods_id);
+
+//        $goods = GoodsModel::find($goods_id);
         //缓存
-        
+        $key = 'goods_id:'.$goods_id;
+
+        $goods = Redis::hgetAll($key);
+        if(empty($goods)){
+            //无缓存
+            echo '无缓存';
+            $goods = GoodsModel::find($goods_id);
+            $goods = $goods->toArray();
+            Redis::hMset($key,$goods);
+            Redis::expire($key,60);
+
+        }
+
 
 
         //用户浏览历史记录
@@ -44,7 +58,7 @@ class GoodsController extends Controller
         }
 
         //是否下架
-        if($goods->is_delete==1)
+        if($goods['is_delete']==1)
         {
             return view('goods.delete');       //商品已删除
         }
