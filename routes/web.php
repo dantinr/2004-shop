@@ -69,3 +69,8 @@ Route::get('/github/callback','UserController@githubLogin');               //GIT
 Route::get('/prize','PrizeController@index');           //抽奖
 Route::get('/prize/start','PrizeController@add');           //开始抽奖
 
+//优惠券
+Route::get('/coupon','CouponController@index');                  //领券页面
+Route::get('/coupon/get','CouponController@getCoupon')->middleware('check.login');         //领券
+Route::post('/coupon/test','CouponController@test');
+
