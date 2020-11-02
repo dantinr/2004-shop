@@ -22,6 +22,9 @@
                     if(d.errno == 400003)
                     {
                         window.location.href='/user/login';
+                    }else{
+                        //领券成功
+                        alert("领券成功");
                     }
                 }
             });
