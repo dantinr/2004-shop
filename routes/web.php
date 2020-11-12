@@ -75,3 +75,15 @@ Route::get('/coupon','CouponController@index');                  //领券页面
 Route::get('/coupon/get','CouponController@getCoupon')->middleware('check.login');         //领券
 Route::post('/coupon/test','CouponController@test');
 
+
+//微信
+Route::prefix('/wx')->group(function(){
+    Route::get('/','WxController@index');       //接入
+    Route::post('/','WxController@wxEvent');
+    Route::get('/token','WxController@getAccessToken');        //获取access_token
+    Route::get('/create_menu','WxController@createMenu');        //创建菜单
+    Route::get('/upload_media','WxController@uploadMedia');        //上传素材
+    Route::get('/send_all','WxController@sendAll');         //群发消息
+
+});
+
