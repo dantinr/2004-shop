@@ -21,29 +21,10 @@ class PrizeController extends Controller
     {
 
         $uid = session()->get('uid');
-        if(empty($uid))     //未登录
-        {
-            $response = [
-                'errno' => 400003,
-                'msg'   => '未登录'
-            ];
-
-            return $response;
-        }
-
 
         //检查用户当天是否已有抽奖记录
         $time1 = strtotime(date("Y-m-d"));
         $res = PrizeModel::where(['uid'=>$uid])->where("add_time",">=",$time1)->first();
-//        if($res)        //已经有记录
-//        {
-//            $response = [
-//                'errno' => 300008,
-//                'msg'   => '今天已经抽过奖了，请明天再来吧'
-//            ];
-//
-//            return $response;
-//        }
 
         $rand = mt_rand(1,1000);
 

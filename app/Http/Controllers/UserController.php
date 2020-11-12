@@ -265,17 +265,7 @@ class UserController extends Controller
      */
     public function center()
     {
-        //$sess = session()->all();
         $uid = session()->get('uid');
-
-        if(empty($uid))
-        {
-            echo "请先登录";
-            die;
-        }
-
-        //展示个人信息
-        //echo "欢迎来到个人中心";
 
         return view('user.home-index');
 

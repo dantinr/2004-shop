@@ -208,11 +208,16 @@ class TestController extends Controller
         echo $body;
 
         $data = json_decode($body,true);
-        echo '<pre>';print_r($data);echo '</pre>'; 
+        echo '<pre>';print_r($data);echo '</pre>';
 
 
 
 
+    }
+
+    public function stu()
+    {
+        echo mt_rand(2,42);
     }
 
 

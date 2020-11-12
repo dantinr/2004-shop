@@ -16,10 +16,6 @@ class CartController extends Controller
     public function index()
     {
         $uid = session()->get('uid');
-        if(empty($uid))
-        {
-            return redirect('/user/login');
-        }
 
         //取购物车商品信息
         $list = CartModel::where(['uid'=>$uid])->get();

@@ -29,6 +29,7 @@ Route::get('/test/weather',"TestController@weather");
 Route::get('/test/curl1',"TestController@curl1");
 Route::get('/test/guzzle1',"TestController@guzzleTest1");
 Route::get('/test/seat',"Test\SeatController@index");
+Route::get('/test/stu',"TestController@stu");          //随机点名
 
 
 Route::get('/hello','TestController@hello');
@@ -52,22 +53,22 @@ Route::get('/user/login','UserController@login');         //登录 前台
 Route::get('/user/quit','UserController@quit');         //退出登录
 Route::post('/user/login','UserController@loginDo');         //登录 后台
 Route::get('/user/active','UserController@active');         //激活用户
-Route::get('/user/center','UserController@center');         //个人中心
+Route::get('/user/center','UserController@center')->middleware('check.login');         //个人中心
 
-Route::get('/cart','CartController@index');               //购物车
-Route::get('/cart/add','CartController@add');               //加入购物车
+Route::get('/cart','CartController@index')->middleware('check.login','log.page-view');     //购物车
+Route::get('/cart/add','CartController@add')->middleware('check.login');               //加入购物车
 
 
-Route::get('/order/create','OrderController@add');          //生成订单
+Route::get('/order/create','OrderController@add')->middleware('check.login');          //生成订单
 
-Route::get('/pay/ali','PayController@aliPay');                   //订单支付(支付宝)
+Route::get('/pay/ali','PayController@aliPay')->middleware('check.login');                   //订单支付(支付宝)
 
 
 Route::get('/github/callback','UserController@githubLogin');               //GITHUB登录
 
 
 Route::get('/prize','PrizeController@index');           //抽奖
-Route::get('/prize/start','PrizeController@add');           //开始抽奖
+Route::get('/prize/start','PrizeController@add')->middleware('check.login');           //开始抽奖
 
 //优惠券
 Route::get('/coupon','CouponController@index');                  //领券页面
