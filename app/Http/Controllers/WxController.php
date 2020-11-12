@@ -312,7 +312,7 @@ class WxController extends Controller
                 [
                     'type'  => 'view',
                     'name'  => '商城',
-                    'url'   => 'http://2004shop.comcto.com'
+                    'url'   => env('APP_URL') . '/wx/web_auth'      //微信网页授权
                 ],
                 [
                     'name'          => '二级菜单',
@@ -490,6 +490,24 @@ class WxController extends Controller
             'verify'    => false
         ]);
         return  json_decode($response->getBody(),true);
+    }
+
+    /**
+     * 跳转至微信网页授权
+     */
+    public function wxWebAuth()
+    {
+        $redirect = 'http://2004shop.comcto.com/wx/web_auth';
+        $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.env('WX_APPID').'&redirect_uri='.$redirect.'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
+        return $redirect($url);
+    }
+
+    /**
+     * 微信网页授权后回跳
+     */
+    public function wxWebRedirect()
+    {
+        echo '<pre>';print_r($_GET);echo '</pre>';
     }
 
 

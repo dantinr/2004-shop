@@ -85,5 +85,8 @@ Route::prefix('/wx')->group(function(){
     Route::get('/upload_media','WxController@uploadMedia');        //上传素材
     Route::get('/send_all','WxController@sendAll');         //群发消息
 
+    Route::get('/web_auth','WxController@wxWebAuth');         //网页授权
+    Route::get('/web_redirect','WxController@wxWebRedirect');         //网页授权
+
 });
 
