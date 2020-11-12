@@ -507,7 +507,14 @@ class WxController extends Controller
      */
     public function wxWebRedirect()
     {
-        echo '<pre>';print_r($_GET);echo '</pre>';
+        
+        $code = $_GET['code'];
+
+        // 使用code换取 access_token
+
+
+        // 使用access_token 请求用户信息
+
     }
 
 
