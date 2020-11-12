@@ -497,7 +497,7 @@ class WxController extends Controller
      */
     public function wxWebAuth()
     {
-        $redirect = 'http://2004shop.comcto.com/wx/web_auth';
+        $redirect = env('APP_URL') . '/wx/web_auth';
         $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.env('WX_APPID').'&redirect_uri='.$redirect.'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
         return $redirect($url);
     }
