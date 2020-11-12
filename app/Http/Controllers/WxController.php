@@ -499,7 +499,7 @@ class WxController extends Controller
     {
         $redirect = env('APP_URL') . '/wx/web_redirect';
         $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.env('WX_APPID').'&redirect_uri='.$redirect.'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
-        return $redirect($url);
+        return redirect($url);
     }
 
     /**
