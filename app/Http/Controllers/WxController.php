@@ -230,7 +230,7 @@ class WxController extends Controller
     protected function clickHandler()
     {
         $event_key = $this->xml_obj->EventKey;      //菜单 click key
-        echo $event_key;
+        //echo $event_key;
 
         switch ($event_key){
             case 'checkin' :
@@ -239,6 +239,11 @@ class WxController extends Controller
 
             case 'weather':
                 // TODO 获取天气
+                break;
+
+            case 'day_goods':
+                // TODO 每日推荐
+                echo $this->dayGoods();
                 break;
 
             default:
@@ -584,6 +589,36 @@ class WxController extends Controller
 
             echo $response->getBody();echo '<hr>';
         }
+    }
+
+
+    /**
+     * 每日推荐商品
+     */
+    public function dayGoods()
+    {
+
+        $to_user = $this->xml_obj->FromUserName;
+        $from_user = $this->xml_obj->ToUserName;
+
+        $xml = "<xml>
+  <ToUserName><![CDATA[".$to_user."]]></ToUserName>
+  <FromUserName><![CDATA[".$from_user."]]></FromUserName>
+  <CreateTime>".time()."</CreateTime>
+  <MsgType><![CDATA[news]]></MsgType>
+  <ArticleCount>1</ArticleCount>
+  <Articles>
+    <item>
+      <Title><![CDATA[每日推荐]]></Title>
+      <Description><![CDATA[每日推荐]]></Description>
+      <PicUrl><![CDATA[http://2004shop.comcto.com/img/timg.png]]></PicUrl>
+      <Url><![CDATA[http://2004shop.comcto.com/goods/detail?id=27192]]></Url>
+    </item>
+  </Articles>
+</xml>";
+
+
+        return $xml;
     }
 
 
