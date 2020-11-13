@@ -342,9 +342,19 @@ class WxController extends Controller
         $menu = [
             'button'    => [
                 [
-                    'type'  => 'view',
-                    'name'  => '商城',
-                    'url'   => env('APP_URL') . '/wx/web_auth'      //微信网页授权
+                    'name'          => '商城',
+                    'sub_button'    => [
+                        [
+                            'type'  => 'view',
+                            'name'  => '商城',
+                            'url'   => env('APP_URL') . '/wx/web_auth'      //微信网页授权
+                        ],
+                        [
+                            'type'  => 'click',
+                            'name'  => '每日推荐',
+                            'key'   => 'day_goods'
+                        ],
+                    ]
                 ],
                 [
                     'name'          => '二级菜单',
