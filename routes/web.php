@@ -87,6 +87,7 @@ Route::prefix('/wx')->group(function(){
 
     Route::get('/web_auth','WxController@wxWebAuth');         //网页授权
     Route::get('/web_redirect','WxController@wxWebRedirect');         //网页授权
+    Route::get('/kefu','WxController@kefu');
 
 });
 

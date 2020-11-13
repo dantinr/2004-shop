@@ -13,6 +13,38 @@ class WxController extends Controller
 
     protected $xml_obj;
 
+    protected $users = [
+        'oLreB1gfi87dPCO2gRiUecC5ZAbc',
+        'oLreB1ruWsNCS-iMr_scTyVSUyY0',
+        'oLreB1gnCH7es_CbLhRvM6yQO-kQ',
+        'oLreB1mi55VwI2wai2y1uicTG5sk',
+        'oLreB1hSqDSoz7VkTDin6J75ez4M',
+        'oLreB1nsTnJSYPgmEUe1YW1xdAOw',
+        'oLreB1i2Ig7OlI9YMI_nUBdGDmU8',
+        'oLreB1qa7IVU3qpe0Tg1LShlzkww',
+        'oLreB1kVep716f8n1i2Ace6r6UnA',
+        'oLreB1kCnRGCqWu0Mur4A08usNRM',
+        'oLreB1upyFz8UPNt5OTNLfP_9ciM',
+        'oLreB1hfXdA_H-A-kJzXotMvlL1s',
+        'oLreB1obDfuVfyBO8cBIH8FibAiA',
+        'oLreB1m47p6J4mfY5Z6CQCMwFX4Q',
+        'oLreB1hjx82-74x7qKxmkyeWbC7I',
+        'oLreB1rcEhV6sMK9-X5Vgw_Sghqo',
+        'oLreB1jG5XZ-F5QokhugIxdpe2lk',
+        'oLreB1jAnJFzV_8AGWUZlfuaoQto',
+        'oLreB1rTYjCsM8lp40yGky1fDcAQ',
+        'oLreB1tqqKpg4n53ujarU47tQnSM',
+        'oLreB1nGcCmNvEXScOpVNgfBifLA',
+        'oLreB1inC1l0NjUy3Vz6rD5DoLDM',
+        'oLreB1uh30YcGZGLDMPbm8cpu81E',
+        'oLreB1qNMROnUTIbIAFSRoekMdfw',
+        'oLreB1sehZ4x0N7T93-elf6f5hYg',
+        'oLreB1tvM636Yof_F4WTh0nP6fOY',
+        'oLreB1oWQYSQJUKL5i6kamigrj8g',
+        'oLreB1oPHycqKR383DQtdhnHjP2U',
+        'oLreB1ikgAe1kq2ES0M6SWQdGVqY',
+    ];
+
     public function index()
     {
         $signature = $_GET["signature"];
@@ -507,7 +539,7 @@ class WxController extends Controller
      */
     public function wxWebRedirect()
     {
-        
+
         $code = $_GET['code'];
 
         // 使用code换取 access_token
@@ -515,6 +547,33 @@ class WxController extends Controller
 
         // 使用access_token 请求用户信息
 
+    }
+
+
+    /**
+     * 发送客服消息
+     */
+    public function kefu()
+    {
+        $url = 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$this->getAccessToken();
+        $client = new Client();
+        foreach ($this->users as $k=>$v){
+            $data = [
+                "touser"    => $v,
+                "msgtype"   => 'video',
+                "video"     => [
+                    "media_id"  => 'QPeIOwxlqeDLAn_UUT5q42Tbose7FI6ty6NYv8ghcFiDxIVEyPUP6u0mzGQ_cSXD',
+                    "title"     => "哈哈",
+                    "description"   => "嘻嘻"
+                ]
+            ];
+            $response = $client->request('POST',$url,[
+                'verify'    => false,
+                'body'      => json_encode($data,JSON_UNESCAPED_UNICODE)
+            ]);
+
+            echo $response->getBody();echo '<hr>';
+        }
     }
 
 
