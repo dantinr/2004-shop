@@ -88,6 +88,13 @@ Route::prefix('/wx')->group(function(){
     Route::get('/web_auth','WxController@wxWebAuth');         //网页授权
     Route::get('/web_redirect','WxController@wxWebRedirect');         //网页授权
     Route::get('/kefu','WxController@kefu');
+    Route::get('/xcxlogin','Weixin\XcxController@login');            //小程序登录 获取code
 
+});
+
+//小程序接口
+Route::prefix('/api')->group(function(){
+    Route::get('/userinfo','Weixin\ApiController@userInfo');
+    Route::get('/test','Weixin\ApiController@test');
 });
 
