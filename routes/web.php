@@ -96,5 +96,6 @@ Route::prefix('/wx')->group(function(){
 Route::prefix('/api')->group(function(){
     Route::get('/userinfo','Weixin\ApiController@userInfo');
     Route::get('/test','Weixin\ApiController@test');
+    Route::get('/goodslist','Weixin\ApiController@goodsList');      //商品列表
 });
 

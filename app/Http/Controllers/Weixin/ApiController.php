@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Weixin;
 
 use App\Http\Controllers\Controller;
+use App\Model\GoodsModel;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
@@ -28,6 +29,25 @@ class ApiController extends Controller
         ];
 
         echo json_encode($goods_info);
+
+    }
+
+    /**
+     * 商品列表
+     */
+    public function goodsList()
+    {
+        $g = GoodsModel::select('goods_id','goods_name','shop_price','add_time')->limit(10)->get()->toArray();
+
+        $response = [
+            'errno' => 0,
+            'msg'   => 'ok',
+            'data'  => [
+                'list'  => $g
+            ]
+        ];
+
+        return $response;
 
     }
 }
