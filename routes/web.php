@@ -94,8 +94,7 @@ Route::prefix('/wx')->group(function(){
 
 //小程序接口
 Route::prefix('/api')->group(function(){
-    Route::get('/userinfo','Weixin\ApiController@userInfo');
-    Route::get('/test','Weixin\ApiController@test');
+    Route::get('/userinfo','Weixin\ApiController@userInfo')-;
     Route::get('/goodslist','Weixin\ApiController@goodsList');      //商品列表
     Route::get('/goods','Weixin\ApiController@goodsInfo');          //商品详情
 });

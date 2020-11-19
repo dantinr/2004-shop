@@ -53,12 +53,23 @@ class XcxController extends Controller
             }
 
 
+            //生成token
             $token = sha1($data['openid'] . $data['session_key'].mt_rand(0,999999));
             //保存token
-            $redis_key = 'xcx_token:'.$token;
-            Redis::set($redis_key,time());
+            $redis_login_hash = 'h:xcx:login:'.$token;
+
+            $login_info = [
+                'uid'           => 1234,
+                'user_name'     => "张三",
+                'login_time'    => date('Y-m-d H:i:s'),
+                'login_ip'      => $request->getClientIp(),
+                'token'         => $token
+            ];
+
+            //保存登录信息
+            Redis::hMset($redis_login_hash,$login_info);
             // 设置过期时间
-            Redis::expire($redis_key,7200);
+            Redis::expire($redis_login_hash,7200);
 
             $response = [
                 'errno' => 0,

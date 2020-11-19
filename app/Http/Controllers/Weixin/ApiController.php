@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Weixin;
 use App\Http\Controllers\Controller;
 use App\Model\GoodsModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class ApiController extends Controller
 {
@@ -58,6 +59,23 @@ class ApiController extends Controller
      */
     public function goodsInfo(Request $request)
     {
+        $token = $request->get('access_token');
+        //验证token是否有效
+        $token_key = 'h:xcx:login:'. $token;
+        echo 'key: >>>>  '.$token_key;echo '<hr>';
+        //检查key是否存在
+        $status = Redis::exists($token_key);
+
+        if($status==0)
+        {
+            $response = [
+                'errno' => 400003,
+                'msg'   => "未授权"
+            ];
+            return $response;
+        }
+
+
         $id = $request->get('id');
         $g = GoodsModel::find($id);
         if($g)
