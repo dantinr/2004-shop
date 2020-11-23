@@ -88,14 +88,17 @@ Route::prefix('/wx')->group(function(){
     Route::get('/web_auth','WxController@wxWebAuth');         //网页授权
     Route::get('/web_redirect','WxController@wxWebRedirect');         //网页授权
     Route::get('/kefu','WxController@kefu');
-    Route::get('/xcxlogin','Weixin\XcxController@login');            //小程序登录 获取code
-
 });
 
 //小程序接口
 Route::prefix('/api')->group(function(){
-    Route::get('/userinfo','Weixin\ApiController@userInfo')-;
+    Route::get('/home-login','Weixin\ApiController@homeLogin');     //小程序首页登录
+    Route::post('/user-login','Weixin\ApiController@userLogin');     //个人中心登录
+    Route::get('/userinfo','Weixin\ApiController@userInfo');
     Route::get('/goodslist','Weixin\ApiController@goodsList');      //商品列表
     Route::get('/goods','Weixin\ApiController@goodsInfo');          //商品详情
+    Route::post('/add-cart','Weixin\ApiController@addCart');          //加入购物车
+    Route::get('/adduser','Weixin\ApiController@addUser');          //添加用户
+
 });
 

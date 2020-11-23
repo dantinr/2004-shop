@@ -17,12 +17,13 @@ class XcxController extends Controller
     {
         //接收code
         $code = $request->get('code');
+        //获取用户信息
+        $userinfo = json_decode(file_get_contents("php://input"),true);
 
         //使用code
         $url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.env('WX_XCX_APPID').'&secret='.env('WX_XCX_SECRET').'&js_code='.$code.'&grant_type=authorization_code';
 
         $data = json_decode( file_get_contents($url),true);
-        //echo '<pre>';print_r($data);echo '</pre>';
 
         //自定义登录状态
         if(isset($data['errcode']))     //有错误
@@ -33,18 +34,24 @@ class XcxController extends Controller
             ];
 
         }else{              //成功
-
             $openid = $data['openid'];          //用户OpenID
             //判断新用户 老用户
             $u = WxUserModel::where(['openid'=>$openid])->first();
             if($u)
             {
                 // TODO 老用户
-                //echo "老用户";
+
             }else{
-                //echo "新用户入库";
+                // TODO 新用户
                 $u_info = [
                     'openid'    => $openid,
+                    'nickname'  => $userinfo['u']['nickName'],
+                    'sex'       => $userinfo['u']['gender'],
+                    'language'  => $userinfo['u']['language'],
+                    'city'      => $userinfo['u']['city'],
+                    'province'  => $userinfo['u']['province'],
+                    'country'   => $userinfo['u']['country'],
+                    'headimgurl'   => $userinfo['u']['avatarUrl'],
                     'add_time'  => time(),
                     'type'      => 3        //小程序
                 ];
