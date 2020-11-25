@@ -62,27 +62,13 @@ class ApiController extends Controller
      */
     public function goodsInfo(Request $request)
     {
-        $token = $request->get('access_token');
-        //验证token是否有效
-        $token_key = 'h:xcx:login:' . $token;
-        //检查key是否存在
-        $status = Redis::exists($token_key);
-
-        if ($status == 0) {
-            $response = [
-                'errno' => 400003,
-                'msg' => "未授权"
-            ];
-            return $response;
-        }
-
-
-        $id = $request->get('id');
+        $id = $request->get('id');      //商品id
         $g = GoodsModel::find($id);
+
         if ($g) {
 
             //商品描述图片
-            $desc_img = GoodsDescImgModel::select('src')->where(['goods_id' => 217])->get()->toArray();
+            $desc_img = GoodsDescImgModel::select('src')->where(['goods_id' => $id])->get()->toArray();
             $g->desc_img = array_column($desc_img, 'src');
 
             //假图片 商品相册
@@ -271,15 +257,20 @@ class ApiController extends Controller
         return $response;
     }
 
-    public function test111()
+    /**
+     * 加入收藏
+     */
+    public function addFav(Request $request)
     {
+        $goods_id = $request->get('id');
+        //加入收藏 Redis有序集合
+        $uid = 2345;
+        $redis_key = 'ss:goods:fav:'.$uid;      // 用户收藏的商品有序集合
+        Redis::Zadd($redis_key,time(),$goods_id);       //将商品id加入有序集合，并给排序值
+
         $response = [
             'errno' => 0,
-            'msg'   => 'ok',
-            'data'  => [
-                'u' => [],
-                'goods' => []
-            ]
+            'msg'   => 'ok'
         ];
 
         return $response;
