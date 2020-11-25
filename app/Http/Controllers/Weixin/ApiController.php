@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Weixin;
 
 use App\Http\Controllers\Controller;
+use App\Model\CartModel;
 use App\Model\GoodsDescImgModel;
 use App\Model\GoodsModel;
 use App\Model\WxUserModel;
@@ -237,6 +238,51 @@ class ApiController extends Controller
 
         return $response;
 
+    }
+
+    /**
+     * 小程序购物车列表
+     */
+    public function cartList()
+    {
+        $uid = 3829;
+        $goods = CartModel::where(['uid'=>$uid])->get();
+        if($goods)      //购物车有商品
+        {
+            $goods = $goods->toArray();
+            foreach($goods as $k=>&$v)
+            {
+                $g = GoodsModel::find($v['goods_id']);
+                $v['goods_name'] = $g->goods_name;
+            }
+        }else{          //购物车无商品
+            $goods = [];
+        }
+
+        //echo '<pre>';print_r($goods);echo '</pre>';die;
+        $response = [
+            'errno' => 0,
+            'msg'   => 'ok',
+            'data'  => [
+                'list'  => $goods
+            ]
+        ];
+
+        return $response;
+    }
+
+    public function test111()
+    {
+        $response = [
+            'errno' => 0,
+            'msg'   => 'ok',
+            'data'  => [
+                'u' => [],
+                'goods' => []
+            ]
+        ];
+
+        return $response;
     }
 
 

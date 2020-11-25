@@ -99,6 +99,8 @@ Route::prefix('/api')->group(function(){
     Route::get('/goods','Weixin\ApiController@goodsInfo');          //商品详情
     Route::post('/add-cart','Weixin\ApiController@addCart');          //加入购物车
     Route::get('/adduser','Weixin\ApiController@addUser');          //添加用户
+    Route::get('/cart-list','Weixin\ApiController@cartList');          //购物车列表
+    Route::get('/test111','Weixin\ApiController@test111');          //购物车列表
 
 });
 
