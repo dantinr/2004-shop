@@ -255,7 +255,7 @@ class ApiController extends Controller
      */
     public function cartList()
     {
-        $uid = 3829;
+        $uid = $_SERVER['uid'];
         $goods = CartModel::where(['uid'=>$uid])->get();
         if($goods)      //购物车有商品
         {
@@ -298,6 +298,31 @@ class ApiController extends Controller
         ];
 
         return $response;
+    }
+
+    /**
+     * 删除购物车商品
+     */
+    public function delCart(Request $request)
+    {
+        $goods_id = $request->post('goods');
+        $goods_arr =  explode(',',$goods_id);
+
+        $res = CartModel::whereIn('goods_id',$goods_arr)->delete();
+        if($res)        //删除成功
+        {
+            $response = [
+                'errno' => 0,
+                'msg'   => 'ok'
+            ];
+        }else{
+            $response = [
+                'errno' => 500002,
+                'msg'   => '内部错误'
+            ];
+        }
+        return $response;
+
     }
 
 
