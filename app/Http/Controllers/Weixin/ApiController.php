@@ -103,16 +103,17 @@ class ApiController extends Controller
     public function addCart(Request $request)
     {
         $goods_id = $request->post('goodsid');
+        $num = $request->post('num',1);
         $uid = $_SERVER['uid'];
 
         //查询商品的价格
         $price = GoodsModel::find($goods_id)->shop_price;
 
         //判断购物车中商品你是否已存在
-        $g = CartModel::where(['goods_id'=>$goods_id])->first();
+        $g = CartModel::where(['uid'=>$uid,'goods_id'=>$goods_id])->first();
         if($g)      //增加商品数量
         {
-            CartModel::where(['goods_id'=>$goods_id])->increment('goods_num');
+            CartModel::where(['goods_id'=>$goods_id])->update(['goods_num'=>$num]);
             $response = [
                 'errno' => 0,
                 'msg'   => 'ok'
@@ -321,8 +322,9 @@ class ApiController extends Controller
     {
         $goods_id = $request->post('goods');
         $goods_arr =  explode(',',$goods_id);
+        $uid = $_SERVER['uid'];
 
-        $res = CartModel::whereIn('goods_id',$goods_arr)->delete();
+        $res = CartModel::where(['uid'=>$uid])->whereIn('goods_id',$goods_arr)->delete();
         if($res)        //删除成功
         {
             $response = [
