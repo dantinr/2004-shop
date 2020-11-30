@@ -108,28 +108,42 @@ class ApiController extends Controller
         //查询商品的价格
         $price = GoodsModel::find($goods_id)->shop_price;
 
-        //将商品存储购物车表 或 Redis
-        $info = [
-            'goods_id'  => $goods_id,
-            'uid'       => $uid,
-            'goods_num' => 1,
-            'add_time'  => time(),
-            'cart_price' => $price
-        ];
-
-        $id = CartModel::insertGetId($info);
-        if($id)
+        //判断购物车中商品你是否已存在
+        $g = CartModel::where(['goods_id'=>$goods_id])->first();
+        if($g)      //增加商品数量
         {
+            CartModel::where(['goods_id'=>$goods_id])->increment('goods_num');
             $response = [
                 'errno' => 0,
                 'msg'   => 'ok'
             ];
         }else{
-            $response = [
-                'errno' => 50002,
-                'msg'   => '加入购物车失败'
+            //将商品存储购物车表 或 Redis
+            $info = [
+                'goods_id'  => $goods_id,
+                'uid'       => $uid,
+                'goods_num' => 1,
+                'add_time'  => time(),
+                'cart_price' => $price
             ];
+
+            $id = CartModel::insertGetId($info);
+            if($id)
+            {
+                $response = [
+                    'errno' => 0,
+                    'msg'   => 'ok'
+                ];
+            }else{
+                $response = [
+                    'errno' => 50002,
+                    'msg'   => '加入购物车失败'
+                ];
+            }
         }
+
+
+
 
         return $response;
     }

@@ -97,7 +97,7 @@ Route::prefix('/api')->group(function(){
     Route::get('/userinfo','Weixin\ApiController@userInfo');
     Route::get('/goodslist','Weixin\ApiController@goodsList');      //商品列表
     Route::get('/goods','Weixin\ApiController@goodsInfo');          //商品详情
-    Route::post('/add-cart','Weixin\ApiController@addCart')->middleware('check.token');          //加入购物车
+    Route::post('/cart-add','Weixin\ApiController@addCart')->middleware('check.token');          //加入购物车
     Route::post('/cart-del','Weixin\ApiController@delCart')->middleware('check.token');          //删除购物车商品
     Route::get('/adduser','Weixin\ApiController@addUser');          //添加用户
     Route::get('/cart-list','Weixin\ApiController@cartList')->middleware('check.token');          //购物车列表
