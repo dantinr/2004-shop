@@ -303,8 +303,7 @@ class ApiController extends Controller
     {
         $goods_id = $request->get('id');
         //加入收藏 Redis有序集合
-        $uid = 2345;
-        $redis_key = 'ss:goods:fav:'.$uid;      // 用户收藏的商品有序集合
+        $redis_key = 'ss:goods:fav:'.$_SERVER['uid'];      // 用户收藏的商品有序集合
         Redis::Zadd($redis_key,time(),$goods_id);       //将商品id加入有序集合，并给排序值
 
         $response = [
