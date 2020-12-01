@@ -69,7 +69,18 @@ class ApiController extends Controller
 
             //商品描述图片
             $desc_img = GoodsDescImgModel::select('src')->where(['goods_id' => $id])->get()->toArray();
-            $g->desc_img = array_column($desc_img, 'src');
+
+            if(empty($desc_img))            //假图片 调试使用
+            {
+                $g->desc_img = [
+                    '//m.360buyimg.com/mobilecms/s750x750_jfs/t1/111255/12/4798/60106/5eaf8287E07941008/3c44062730a124a3.jpg!q80.dpg.webp',
+                    '//m.360buyimg.com/mobilecms/s1125x1125_jfs/t1/110386/33/15773/49353/5eaf8287E3bf0ee38/f36b1e38ffa548bb.jpg!q70.dpg.webp',
+                    '//m.360buyimg.com/mobilecms/s1125x1125_jfs/t1/114659/16/4624/58760/5eaf8287E5990f3f2/bfb950634adec0d3.jpg!q70.dpg.webp',
+                    '//m.360buyimg.com/mobilecms/s1125x1125_jfs/t1/107198/29/15926/41692/5eaf8287Ecee4dff5/663bdfd096326880.jpg!q70.dpg.webp'
+                ];
+            }else{
+                $g->desc_img = array_column($desc_img, 'src');
+            }
 
             //假图片 商品相册
             $g->gallery = [
