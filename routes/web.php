@@ -104,3 +104,8 @@ Route::prefix('/api')->group(function(){
     Route::get('/add-fav','Weixin\ApiController@addFav')->middleware('check.token');          //加入收藏
 });
 
+
+Route::prefix('/my')->group(function(){
+   Route::get('/order/search','Test\RelationshipController@search');
+   Route::get('/order/search2','Test\RelationshipController@searchDo');
+});
