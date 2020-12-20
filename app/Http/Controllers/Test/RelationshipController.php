@@ -21,6 +21,40 @@ class RelationshipController extends Controller
     {
         $uid = $request->get('uid');
         $oid = $request->get('oid');
+        $order_sn = $request->get('order_sn');
+        $user_name = $request->get('user_name');
+
+        //根据 用户名查找 订单详情
+        $list = UserModel::where(['user_name'=>$user_name])->first()->orders;
+        if($list){
+            echo '<pre>';print_r($list->toArray());echo '</pre>';
+        }else{
+            echo "Nothing";
+        }
+        die;
+
+
+        //根据 用户名查找 订单
+        $list = UserModel::where(['user_name'=>$user_name])->first()->orders;
+        if($list){
+            echo '<pre>';print_r($list->toArray());echo '</pre>';
+        }else{
+            echo "Nothing";
+        }
+        die;
+
+
+
+
+        //根据订order_sn 查 订单详情
+        $list = OrderModel::where(['order_sn'=>$order_sn])->first()->orderDetails;
+        if($list){
+            echo '<pre>';print_r($list->toArray());echo '</pre>';
+        }else{
+            echo "Nothing";
+        }
+        die;
+
 
         //根据订单号 查 人 begin
         $u = OrderModel::find($oid)->user;
@@ -35,7 +69,6 @@ class RelationshipController extends Controller
 
 
         //根据用户查订单 begin
-
         $list = UserModel::find($uid)->orders;
         if($list){
             $list = $list->toArray();

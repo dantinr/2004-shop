@@ -13,6 +13,7 @@
     @csrf
     用户ID： <input type="text" name="uid"><br>
     订单号： <input type="text" name="oid"><br>
+    Order_SN: <input type="text" name="order_sn"> <br>
 
     <input type="submit" value="Search">
 </form>
